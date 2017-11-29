@@ -138,7 +138,18 @@ local serviceDeployFromValues(parentName, componentName, values) = {
                   config: {mountPath: "/monocular/config"},
                 },
               },
-              tiller: (import "tiller-deployment.jsonnet").spec.template.spec.containers[0],
+              local tillerContainer = (import "tiller-deployment.jsonnet").spec.template.spec.containers[0],
+              tiller: tillerContainer {
+                overrideEnvs(overrides):: [
+                  if std.objectHas(overrides, x.name) then { name: x.name, value: overrides[x.name] } else x for x in tillerContainer.env
+                ],
+                env: self.overrideEnvs({
+                  TILLER_NAMESPACE: $.api.deploy.metadata.namespace,
+                }),
+                ports: [],  // Informational only, doesn't actually restrict access to :44134
+                command: ["/tiller"],
+                args+: ["--listen=localhost:44134"],  // remove access to :44134 outside pod
+              },
             },
             volumes_+: {
               config: kube.ConfigMapVolume($.api.config),
