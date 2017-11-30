@@ -1,6 +1,4 @@
-local k = import "ksonnet.beta.1/k.libsonnet";
 local kube = import "kube.libsonnet";
-local container = k.core.v1.container;
 
 local kubeless = import "vendor/kubeless/kubeless-rbac.jsonnet";
 
