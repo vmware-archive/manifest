@@ -33,7 +33,6 @@ local host = "kubeless-ui";
           serviceAccountName: $.serviceAccount.metadata.name,
           containers_+: {
             default: kube.Container("ui") {
-              // FIXME: point to real tag
               image: "bitnami/kubeless-ui:v0.1.0",
               ports_: {
                 ui: {containerPort: 3000, protocol: "TCP"},
