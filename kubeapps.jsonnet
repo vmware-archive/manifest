@@ -106,6 +106,9 @@ local labelifyEach(src) = {
   dashboard: labelifyEach($.dashboard_) {
     ui: labelifyEach($.dashboard_.ui),
     api: labelifyEach($.dashboard_.api),
+    apprepository: labelifyEach($.dashboard_.apprepository) {
+      apprepos: labelifyEach($.dashboard_.apprepository.apprepos),
+    },
   },
 
   mongodb_:: (import "mongodb.jsonnet") {

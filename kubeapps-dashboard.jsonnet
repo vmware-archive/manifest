@@ -229,4 +229,6 @@ local serviceDeployFromValues(parentName, componentName, values) = {
       },
     },
   },
+
+  apprepository: (import "apprepository.jsonnet"),
 }
