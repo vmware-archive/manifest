@@ -231,4 +231,8 @@ local serviceDeployFromValues(parentName, componentName, values) = {
   },
 
   apprepository: (import "apprepository.jsonnet"),
+  chartsvc: (import "chartsvc.jsonnet") {
+    mongodb_secret: $.mongodb_secret,
+    mongodb_host: mongoDbHost,
+  },
 }

@@ -109,6 +109,7 @@ local labelifyEach(src) = {
     apprepository: labelifyEach($.dashboard_.apprepository) {
       apprepos: labelifyEach($.dashboard_.apprepository.apprepos),
     },
+    chartsvc: labelifyEach($.dashboard_.chartsvc),
   },
 
   mongodb_:: (import "mongodb.jsonnet") {
@@ -129,6 +130,7 @@ local labelifyEach(src) = {
         http: {
           paths: [
             {path: "/", backend: $.dashboard.ui.svc.name_port},
+            {path: "/api/chartsvc", backend: $.dashboard.chartsvc.service.name_port},
             {path: "/api/", backend: $.dashboard.api.svc.name_port},
             {path: "/kubeless", backend: $.kubelessui.svc.name_port},
           ],
