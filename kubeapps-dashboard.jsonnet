@@ -235,4 +235,5 @@ local serviceDeployFromValues(parentName, componentName, values) = {
     mongodb_secret: $.mongodb_secret,
     mongodb_host: mongoDbHost,
   },
+  kubeapi: (import "kube-api.jsonnet"),
 }
