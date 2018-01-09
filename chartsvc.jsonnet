@@ -26,7 +26,9 @@ local labels = {
                 "mongo-user": "root",
                 "mongo-url": $.mongodb_host,
               },
-              ports: [{name: "http", containerPort: 8080}],
+              ports_: {
+                http: {containerPort: 8080}
+              },
             },
           },
         },
