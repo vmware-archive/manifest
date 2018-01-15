@@ -66,6 +66,9 @@ local labelifyEach(src) = {
   },
   kubelessui: labelifyEach($.kubelessui_),
 
+  helmcrd_:: import "helm-crd.jsonnet",
+  helmcrd: labelifyEach($.helmcrd_),
+
   dashboard_:: (import "kubeapps-dashboard.jsonnet") {
     namespace:: $.namespace,
     mongodb_svc:: $.mongodb_.svc,
@@ -101,7 +104,7 @@ local labelifyEach(src) = {
       },
     },
     ui+: readinessDelay(0),
-    api+: readinessDelay(0),
+    api+: readinessDelay(0) {deploy+: $.helmcrd_.controllerSidecar},
   },
   dashboard: labelifyEach($.dashboard_) {
     ui: labelifyEach($.dashboard_.ui),

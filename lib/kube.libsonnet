@@ -47,6 +47,20 @@
     std.parseInt(std.substr(n, 0, n_len - convert[0])) * convert[1]
   ),
 
+  local remap(v, start, end, newstart) =
+    if v >= start && v <= end then v - start + newstart else v,
+  local remapChar(c, start, end, newstart) =
+    std.char(remap(
+      std.codepoint(c), std.codepoint(start), std.codepoint(end), std.codepoint(newstart))),
+  // Return lowercased string
+  toLower(s):: (
+    std.join("", [remapChar(c, "A", "Z", "a") for c in std.stringChars(s)])
+  ),
+  // Return uppercased string
+  toUpper(s):: (
+    std.join("", [remapChar(c, "a", "z", "A") for c in std.stringChars(s)])
+  ),
+
   _Object(apiVersion, kind, name):: {
     apiVersion: apiVersion,
     kind: kind,
@@ -403,6 +417,26 @@
   ThirdPartyResource(name): $._Object("extensions/v1beta1", "ThirdPartyResource", name) {
     versions_:: [],
     versions: [{ name: n } for n in self.versions_],
+  },
+
+  CustomResourceDefinition(group, version, kind): {
+    local this = self,
+    apiVersion: "apiextensions.k8s.io/v1beta1",
+    kind: "CustomResourceDefinition",
+    metadata+: {
+      name: this.spec.names.plural + "." + this.spec.group,
+    },
+    spec: {
+      scope: "Namespaced",
+      group: group,
+      version: version,
+      names: {
+        kind: kind,
+        singular: $.toLower(self.kind),
+        plural: self.singular + "s",
+        listKind: self.kind + "List",
+      },
+    },
   },
 
   ServiceAccount(name): $._Object("v1", "ServiceAccount", name) {
