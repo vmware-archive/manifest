@@ -20,12 +20,9 @@ api:
     externalPort: 80
     internalPort: 8081
   resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
     requests:
       cpu: 100m
-      memory: 128Mi
+      memory: 512Mi
   livenessProbe:
     initialDelaySeconds: 180
   config:
@@ -52,13 +49,12 @@ api:
     # Enable Helm deployment integration
     releasesEnabled: true
     # Cache refresh interval in sec.
-    cacheRefreshInterval: 3600
+    cacheRefreshInterval: 900
 ui:
   replicaCount: 1
   image:
     repository: kubeapps/dashboard
-    # FIXME: point to a real tag
-    tag: latest
+    tag: v0.1.0
     pullPolicy: Always
   service:
     name: monocular-ui
