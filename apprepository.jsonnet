@@ -60,7 +60,7 @@ local labels = {
           serviceAccountName: $.serviceaccount.metadata.name,
           containers_+: {
             default: kube.Container("controller") {
-              image: "kubeapps/apprepository-controller@sha256:e3b1fdff556ba25466a2dc1fc886580f553a2b3f6a547171ccf2c25616106b5f",
+              image: "kubeapps/apprepository-controller@sha256:2adb4f419d6f63952f1f678dc14bab73c25b355b85857748172ee917135e7c38",
               command: ["/apprepository-controller"],
               args: ["-logtostderr"],
             },
