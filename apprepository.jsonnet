@@ -80,5 +80,6 @@ local labels = {
   apprepos: {
     stable: $._apprepo("stable", "https://kubernetes-charts.storage.googleapis.com"),
     incubator: $._apprepo("incubator", "https://kubernetes-charts-incubator.storage.googleapis.com"),
+    svccat: $._apprepo("svc-cat", "https://svc-catalog-charts.storage.googleapis.com"),
   },
 }
